@@ -47,13 +47,18 @@ def draw():
 
 def move():
     """Move ball and targets."""
-    if randrange(40) == 0:
+    if randrange(40) == 0:  
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
     for target in targets:
-        target.x -= 2#aquí se cambia la velocidad de los balones
+        target.x -= 0.5
+        """Con este if hacemos que los circulos al llegar al lado izquierdo de la pantalla reaparezcan del lado derecho"""
+        if target.x<-180:
+            target.x=190
+            target.y = randrange(-150, 150)
+            
 
     if inside(ball):
         speed.y -= 0.35
@@ -61,6 +66,7 @@ def move():
 
     dupe = targets.copy()
     targets.clear()
+    
 
     for target in dupe:
         if abs(target - ball) > 13:
@@ -72,7 +78,8 @@ def move():
         if not inside(target):
             return
 
-    ontimer(move, 50)
+    ontimer(move, 10)
+    """Aquí se le cambia la velocidad al proyectile y a los balones, entre más chico el valor más rápido y viceversa"""
 
 
 setup(420, 420, 370, 0)
